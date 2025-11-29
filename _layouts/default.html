@@ -30,6 +30,26 @@
             padding-bottom: 15px;
             margin-bottom: 20px;
         }
+        header img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .social-links {
+            text-align: center;
+            margin: 15px 0 10px;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 2em;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .social-links a:hover {
+            transform: scale(1.2);
+        }
         h1 {
             color: #2c3e50;
             margin-bottom: 10px;
@@ -185,12 +205,17 @@
             nav {
                 gap: 8px;
                 width: 100%;
+                justify-content: center;
             }
             nav a {
-                padding: 8px 16px;
-                font-size: 0.95em;
-                flex: 1;
-                min-width: 80px;
+                padding: 8px 12px;
+                font-size: 0.9em;
+                flex: 1 1 auto;
+                min-width: 90px;
+                max-width: 150px;
+            }
+            .social-links a {
+                font-size: 1.5em;
             }
             .section {
                 margin: 15px 0;
@@ -207,11 +232,20 @@
         <header>
             <!--<h1><a href="/" style="color: #2c3e50; text-decoration: none;">{{ site.title }}</a></h1>
             <p>{{ site.description }}</p>-->
-            <center><img src="http://rumbucketbowling.net/rumbucket.png" style="height: 300px; width: 750px;"></center>
+            <img src="http://rumbucketbowling.net/rumbucket.png" alt="Rum Bucket Bowling League">
+            <div class="social-links">
+                <a href="#" title="Follow us on Facebook" aria-label="Facebook">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="#1877F2">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+            </div>
             <nav>
-                <a href="/">Home</a>
-                <a href="/players/">Players</a>
-                <a href="/weeks/">Weeks</a>
+                <a href="/">🎳 Home</a>
+                <a href="/players/">🎳 Players</a>
+                <a href="/weeks/">🎳 Weeks</a>
+                <a href="/about/">🎳 About</a>
+                <a href="/contact/">🎳 Contact</a>
             </nav>
         </header>
         <main>
