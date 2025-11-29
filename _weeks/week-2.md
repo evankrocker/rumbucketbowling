@@ -1,9 +1,9 @@
 ---
 title: Week 2
-date: 2025-11-15
+date: 2025-11-21
 scores:
   - player: Evan Krocker
-    game1: 152
-    game2: 165
-    game3: 159
+    game1: 97
+    game2: 99
+    game3: 156
 ---
