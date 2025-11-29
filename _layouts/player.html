@@ -1,0 +1,82 @@
+---
+layout: default
+---
+
+<h1>{{ page.name }}</h1>
+
+<div class="section">
+    <h2>Player Statistics</h2>
+
+    {% assign total_games = 0 %}
+    {% assign total_score = 0 %}
+
+    {% for week in site.weeks %}
+        {% for score in week.scores %}
+            {% if score.player == page.name %}
+                {% assign total_games = total_games | plus: 3 %}
+                {% assign game_total = score.game1 | plus: score.game2 | plus: score.game3 %}
+                {% assign total_score = total_score | plus: game_total %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+    {% if total_games > 0 %}
+        {% assign average = total_score | divided_by: total_games %}
+        <p><strong>Average Score:</strong> <span class="score">{{ average }}</span></p>
+        <p><strong>Total Games Played:</strong> {{ total_games }}</p>
+        <p><strong>Total Pins:</strong> {{ total_score }}</p>
+    {% else %}
+        <p>No games played yet.</p>
+    {% endif %}
+</div>
+
+<div class="section">
+    <h2>Game History</h2>
+
+    {% assign player_weeks = "" | split: "" %}
+    {% for week in site.weeks %}
+        {% for score in week.scores %}
+            {% if score.player == page.name %}
+                {% assign player_weeks = player_weeks | push: week %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+    {% assign sorted_weeks = player_weeks | sort: "date" | reverse %}
+
+    {% if sorted_weeks.size > 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <th>Date</th>
+                    <th>Game 1</th>
+                    <th>Game 2</th>
+                    <th>Game 3</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for week in sorted_weeks %}
+                    {% for score in week.scores %}
+                        {% if score.player == page.name %}
+                            {% assign game_total = score.game1 | plus: score.game2 | plus: score.game3 %}
+                            <tr>
+                                <td><a href="{{ week.url }}" class="player-link">{{ week.title }}</a></td>
+                                <td class="date">{{ week.date | date: "%B %d, %Y" }}</td>
+                                <td>{{ score.game1 }}</td>
+                                <td>{{ score.game2 }}</td>
+                                <td>{{ score.game3 }}</td>
+                                <td class="score">{{ game_total }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No games recorded yet.</p>
+    {% endif %}
+</div>
+
+<p><a href="/" class="player-link">← Back to Home</a></p>

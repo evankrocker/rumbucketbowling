@@ -1,0 +1,31 @@
+# Jekyll Bowling League Site Configuration
+title: Bowling League Manager
+description: Track weekly bowling scores and player statistics
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# Collections
+collections:
+  players:
+    output: true
+    permalink: /players/:name/
+  weeks:
+    output: true
+    permalink: /weeks/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "players"
+    values:
+      layout: "player"
+  - scope:
+      path: ""
+      type: "weeks"
+    values:
+      layout: "week"

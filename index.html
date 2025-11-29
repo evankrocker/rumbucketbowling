@@ -1,0 +1,169 @@
+---
+layout: default
+title: Bowling League Manager
+---
+
+<h1>Welcome to the Bowling League</h1>
+
+<!-- Latest Week's Top 3 -->
+<div class="section">
+    <h2>Latest Week - Top 3 Players</h2>
+
+    {% assign latest_week = site.weeks | sort: "date" | reverse | first %}
+
+    {% if latest_week %}
+        <h3>{{ latest_week.title }} - {{ latest_week.date | date: "%B %d, %Y" }}</h3>
+
+        {% assign scores_with_totals = "" | split: "" %}
+        {% for score in latest_week.scores %}
+            {% assign game_total = score.game1 | plus: score.game2 | plus: score.game3 %}
+            {% assign score_data = score | merge: hash: "total", game_total %}
+            {% assign scores_with_totals = scores_with_totals | push: score_data %}
+        {% endfor %}
+
+        {% assign sorted_scores = scores_with_totals | sort: "total" | reverse %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Game 1</th>
+                    <th>Game 2</th>
+                    <th>Game 3</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for score in sorted_scores limit:3 %}
+                    {% assign game_total = score.game1 | plus: score.game2 | plus: score.game3 %}
+                    <tr>
+                        <td class="rank">{{ forloop.index }}</td>
+                        <td>
+                            {% assign player_slug = score.player | slugify %}
+                            <a href="/players/{{ player_slug }}/" class="player-link">{{ score.player }}</a>
+                        </td>
+                        <td>{{ score.game1 }}</td>
+                        <td>{{ score.game2 }}</td>
+                        <td>{{ score.game3 }}</td>
+                        <td class="score">{{ game_total }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p><a href="{{ latest_week.url }}" class="player-link">View Full Results →</a></p>
+    {% else %}
+        <p>No weeks have been recorded yet.</p>
+    {% endif %}
+</div>
+
+<!-- Top 5 Players by Average -->
+<div class="section">
+    <h2>Top 5 Players by Average</h2>
+
+    {% comment %}
+    Calculate averages for all players and create a sortable string format
+    Format: "average|player_name|games|total" with leading zeros for proper string sorting
+    {% endcomment %}
+    {% assign player_stats = "" | split: "" %}
+
+    {% for player in site.players %}
+        {% assign player_name = player.name %}
+        {% assign total_games = 0 %}
+        {% assign total_score = 0 %}
+
+        {% for week in site.weeks %}
+            {% for score in week.scores %}
+                {% if score.player == player_name %}
+                    {% assign total_games = total_games | plus: 3 %}
+                    {% assign game_total = score.game1 | plus: score.game2 | plus: score.game3 %}
+                    {% assign total_score = total_score | plus: game_total %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+        {% if total_games > 0 %}
+            {% assign average = total_score | divided_by: total_games %}
+            {% comment %}Create sortable string with padded average{% endcomment %}
+            {% assign avg_padded = average | plus: 1000 %}
+            {% assign stat_string = avg_padded | append: "|" | append: player_name | append: "|" | append: total_games | append: "|" | append: total_score %}
+            {% assign player_stats = player_stats | push: stat_string %}
+        {% endif %}
+    {% endfor %}
+
+    {% assign sorted_stats = player_stats | sort | reverse %}
+
+    {% if sorted_stats.size > 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Average</th>
+                    <th>Games Played</th>
+                    <th>Total Pins</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stat in sorted_stats limit:5 %}
+                    {% assign parts = stat | split: "|" %}
+                    {% assign padded_avg = parts[0] | plus: 0 %}
+                    {% assign average = padded_avg | minus: 1000 %}
+                    {% assign player_name = parts[1] %}
+                    {% assign total_games = parts[2] %}
+                    {% assign total_score = parts[3] %}
+                    <tr>
+                        <td class="rank">{{ forloop.index }}</td>
+                        <td>
+                            {% assign player_slug = player_name | slugify %}
+                            <a href="/players/{{ player_slug }}/" class="player-link">{{ player_name }}</a>
+                        </td>
+                        <td class="score">{{ average }}</td>
+                        <td>{{ total_games }}</td>
+                        <td>{{ total_score }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No player statistics available yet.</p>
+    {% endif %}
+</div>
+
+<!-- All Weeks -->
+<div class="section" id="weeks">
+    <h2>All Weeks</h2>
+
+    {% assign all_weeks = site.weeks | sort: "date" | reverse %}
+
+    {% if all_weeks.size > 0 %}
+        <ul>
+            {% for week in all_weeks %}
+                <li>
+                    <a href="{{ week.url }}" class="player-link">{{ week.title }}</a> -
+                    <span class="date">{{ week.date | date: "%B %d, %Y" }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No weeks recorded yet.</p>
+    {% endif %}
+</div>
+
+<!-- All Players -->
+<div class="section" id="players">
+    <h2>All Players</h2>
+
+    {% assign all_players_sorted = site.players | sort: "name" %}
+
+    {% if all_players_sorted.size > 0 %}
+        <ul>
+            {% for player in all_players_sorted %}
+                <li><a href="{{ player.url }}" class="player-link">{{ player.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No players registered yet.</p>
+    {% endif %}
+</div>
