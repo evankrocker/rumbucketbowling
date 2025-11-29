@@ -1,0 +1,75 @@
+---
+layout: default
+title: Submit Scores
+---
+
+<h1 class="mb-4">Submit Your Scores</h1>
+
+<p class="lead mb-4">Fill out the form below to submit your bowling scores for the week.</p>
+
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <form action="https://formsubmit.co/ekrocker@gmail.com" method="POST">
+                    <!-- Hidden fields for FormSubmit configuration -->
+                    <input type="hidden" name="_subject" value="New Bowling Scores Submission">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+
+                    <!-- Player Name -->
+                    <div class="mb-3">
+                        <label for="playerName" class="form-label">Player Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="playerName" name="Player_Name" required placeholder="Enter your full name">
+                    </div>
+
+                    <!-- Date -->
+                    <div class="mb-3">
+                        <label for="bowlingDate" class="form-label">Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="bowlingDate" name="Date" required>
+                    </div>
+
+                    <!-- Game Scores -->
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="game1" class="form-label">Game 1 Score <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="game1" name="Game_1_Score" min="0" max="300" required placeholder="0-300">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="game2" class="form-label">Game 2 Score <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="game2" name="Game_2_Score" min="0" max="300" required placeholder="0-300">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="game3" class="form-label">Game 3 Score <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="game3" name="Game_3_Score" min="0" max="300" required placeholder="0-300">
+                        </div>
+                    </div>
+
+                    <!-- Optional Notes -->
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Additional Notes (Optional)</label>
+                        <textarea class="form-control" id="notes" name="Notes" rows="3" placeholder="Any additional comments or notes..."></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">🎳 Submit Scores</button>
+                    </div>
+
+                    <div class="mt-3">
+                        <small class="text-muted">* Required fields</small>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="alert alert-info mt-4">
+            <h5 class="alert-heading">📧 Email Verification</h5>
+            <p class="mb-0">After submitting this form for the first time, you'll need to verify your email address by clicking a confirmation link that FormSubmit will send to ekrocker@gmail.com. This is a one-time verification to prevent spam.</p>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="/" class="btn btn-secondary">← Back to Home</a>
+</div>
