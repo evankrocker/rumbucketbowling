@@ -1,0 +1,71 @@
+---
+layout: default
+title: All Players
+---
+
+<h1>All Players</h1>
+
+<div class="section">
+    <p>View statistics and game history for each player in the league.</p>
+
+    {% assign all_players = site.players | sort: "name" %}
+
+    {% if all_players.size > 0 %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Average</th>
+                        <th>Games Played</th>
+                        <th>Total Pins</th>
+                        <th>Weeks Participated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in all_players %}
+                        {% assign player_name = player.name %}
+                        {% assign total_games = 0 %}
+                        {% assign total_score = 0 %}
+                        {% assign weeks_count = 0 %}
+
+                        {% for week in site.weeks %}
+                            {% assign played_this_week = false %}
+                            {% for score in week.scores %}
+                                {% if score.player == player_name %}
+                                    {% assign total_games = total_games | plus: 3 %}
+                                    {% assign game_total = score.game1 | plus: score.game2 | plus: score.game3 %}
+                                    {% assign total_score = total_score | plus: game_total %}
+                                    {% assign played_this_week = true %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if played_this_week %}
+                                {% assign weeks_count = weeks_count | plus: 1 %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if total_games > 0 %}
+                            {% assign average = total_score | divided_by: total_games %}
+                        {% else %}
+                            {% assign average = 0 %}
+                        {% endif %}
+
+                        <tr>
+                            <td>
+                                <a href="{{ player.url }}" class="player-link">{{ player_name }}</a>
+                            </td>
+                            <td class="score">{{ average }}</td>
+                            <td>{{ total_games }}</td>
+                            <td>{{ total_score }}</td>
+                            <td>{{ weeks_count }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No players registered yet.</p>
+    {% endif %}
+</div>
+
+<p><a href="/" class="player-link">← Back to Home</a></p>

@@ -1,0 +1,60 @@
+---
+layout: default
+title: All Weeks
+---
+
+<h1>All Weeks</h1>
+
+<div class="section">
+    <p>Browse results from all bowling weeks in the league.</p>
+
+    {% assign all_weeks = site.weeks | sort: "date" | reverse %}
+
+    {% if all_weeks.size > 0 %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>Date</th>
+                        <th>Players</th>
+                        <th>Top Score</th>
+                        <th>Winner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for week in all_weeks %}
+                        {% assign top_score = 0 %}
+                        {% assign winner = "" %}
+                        {% assign players_count = week.scores | size %}
+
+                        {% for score in week.scores %}
+                            {% assign game_total = score.game1 | plus: score.game2 | plus: score.game3 %}
+                            {% if game_total > top_score %}
+                                {% assign top_score = game_total %}
+                                {% assign winner = score.player %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <tr>
+                            <td>
+                                <a href="{{ week.url }}" class="player-link">{{ week.title }}</a>
+                            </td>
+                            <td class="date">{{ week.date | date: "%B %d, %Y" }}</td>
+                            <td>{{ players_count }}</td>
+                            <td class="score">{{ top_score }}</td>
+                            <td>
+                                {% assign winner_slug = winner | slugify %}
+                                <a href="/players/{{ winner_slug }}/" class="player-link">{{ winner }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No weeks recorded yet.</p>
+    {% endif %}
+</div>
+
+<p><a href="/" class="player-link">← Back to Home</a></p>

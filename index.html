@@ -135,39 +135,21 @@ title: Bowling League Manager
     {% endif %}
 </div>
 
-<!-- All Weeks -->
-<div class="section" id="weeks">
-    <h2>All Weeks</h2>
+<!-- Quick Links -->
+<div class="section">
+    <h2>Quick Links</h2>
 
-    {% assign all_weeks = site.weeks | sort: "date" | reverse %}
+    {% assign weeks_count = site.weeks | size %}
+    {% assign players_count = site.players | size %}
 
-    {% if all_weeks.size > 0 %}
-        <ul>
-            {% for week in all_weeks %}
-                <li>
-                    <a href="{{ week.url }}" class="player-link">{{ week.title }}</a> -
-                    <span class="date">{{ week.date | date: "%B %d, %Y" }}</span>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No weeks recorded yet.</p>
-    {% endif %}
-</div>
-
-<!-- All Players -->
-<div class="section" id="players">
-    <h2>All Players</h2>
-
-    {% assign all_players_sorted = site.players | sort: "name" %}
-
-    {% if all_players_sorted.size > 0 %}
-        <ul>
-            {% for player in all_players_sorted %}
-                <li><a href="{{ player.url }}" class="player-link">{{ player.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No players registered yet.</p>
-    {% endif %}
+    <p>
+        <a href="/weeks/" class="player-link" style="font-size: 1.1em;">
+            📅 View All Weeks ({{ weeks_count }}) →
+        </a>
+    </p>
+    <p>
+        <a href="/players/" class="player-link" style="font-size: 1.1em;">
+            👥 View All Players ({{ players_count }}) →
+        </a>
+    </p>
 </div>
