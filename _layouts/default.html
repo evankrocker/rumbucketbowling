@@ -39,20 +39,33 @@
             height: auto;
             display: block;
         }
-        .facebook-icon {
-            display: flex;
+        footer {
+            border-top: 3px solid #2c3e50;
+            padding-top: 30px;
+            margin-top: 50px;
+            text-align: center;
+        }
+        .footer-facebook {
+            display: inline-flex;
             align-items: center;
-            margin-left: auto;
-            margin-right: 20px;
+            gap: 15px;
+            padding: 15px 30px;
+            background: #1877F2;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
         }
-        .facebook-icon a {
-            display: inline-block;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            line-height: 0;
+        .footer-facebook:hover {
+            background: #166fe5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.4);
         }
-        .facebook-icon a:hover {
-            transform: scale(1.1);
-            opacity: 0.8;
+        .footer-facebook svg {
+            flex-shrink: 0;
         }
         h1 {
             color: #2c3e50;
@@ -193,10 +206,6 @@
                 max-width: 100%;
                 margin: 0 auto 15px;
             }
-            .facebook-icon {
-                margin: 0 auto 15px;
-                justify-content: center;
-            }
             h1 {
                 font-size: 1.5em;
             }
@@ -246,14 +255,6 @@
             <!--<h1><a href="/" style="color: #2c3e50; text-decoration: none;">{{ site.title }}</a></h1>
             <p>{{ site.description }}</p>-->
             <img src="http://rumbucketbowling.net/rumbucket.png" alt="Rum Bucket Bowling League">
-            <div class="facebook-icon">
-                <a href="https://facebook.com/rumbucketbowlingpa" target="_blank" rel="noopener noreferrer" title="Follow us on Facebook" aria-label="Follow us on Facebook">
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="24" cy="24" r="24" fill="#1877F2"/>
-                        <path d="M26.5 25.5H30.5L32 20.5H26.5V17.5C26.5 16.47 26.5 14.5 29.5 14.5H32V10.14C31.174 10.045 29.943 9.5 27.643 9.5C24.928 9.5 22.5 11.183 22.5 15.5V20.5H18V25.5H22.5V38.5H26.5V25.5Z" fill="white"/>
-                    </svg>
-                </a>
-            </div>
             <nav>
                 <a href="/">🎳 Home</a>
                 <a href="/players/">🎳 Players</a>
@@ -265,6 +266,14 @@
         <main>
             {{ content }}
         </main>
+        <footer>
+            <a href="https://facebook.com/rumbucketbowlingpa" target="_blank" rel="noopener noreferrer" class="footer-facebook">
+                <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M24 0C10.745 0 0 10.745 0 24c0 11.979 8.776 21.908 20.25 23.708V30.938h-6.094v-6.938h6.094v-5.281c0-6.016 3.583-9.344 9.073-9.344 2.625 0 5.375.469 5.375.469v5.906h-3.031c-2.984 0-3.917 1.85-3.917 3.75v4.5h6.656l-1.063 6.938h-5.594v16.77C39.224 45.908 48 35.978 48 24 48 10.745 37.255 0 24 0z" fill="white"/>
+                </svg>
+                Join us on Facebook
+            </a>
+        </footer>
     </div>
 </body>
 </html>
