@@ -17,34 +17,36 @@ layout: default
 
     {% assign sorted_scores = scores_with_totals | sort: "total" | reverse %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Rank</th>
-                <th>Player</th>
-                <th>Game 1</th>
-                <th>Game 2</th>
-                <th>Game 3</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for score in sorted_scores %}
-                {% assign game_total = score.game1 | plus: score.game2 | plus: score.game3 %}
+    <div class="table-wrapper">
+        <table>
+            <thead>
                 <tr>
-                    <td class="rank">{{ forloop.index }}</td>
-                    <td>
-                        {% assign player_slug = score.player | slugify %}
-                        <a href="/players/{{ player_slug }}/" class="player-link">{{ score.player }}</a>
-                    </td>
-                    <td>{{ score.game1 }}</td>
-                    <td>{{ score.game2 }}</td>
-                    <td>{{ score.game3 }}</td>
-                    <td class="score">{{ game_total }}</td>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Game 1</th>
+                    <th>Game 2</th>
+                    <th>Game 3</th>
+                    <th>Total</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for score in sorted_scores %}
+                    {% assign game_total = score.game1 | plus: score.game2 | plus: score.game3 %}
+                    <tr>
+                        <td class="rank">{{ forloop.index }}</td>
+                        <td>
+                            {% assign player_slug = score.player | slugify %}
+                            <a href="/players/{{ player_slug }}/" class="player-link">{{ score.player }}</a>
+                        </td>
+                        <td>{{ score.game1 }}</td>
+                        <td>{{ score.game2 }}</td>
+                        <td>{{ score.game3 }}</td>
+                        <td class="score">{{ game_total }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <p><a href="/" class="player-link">← Back to Home</a></p>

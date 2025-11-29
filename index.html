@@ -23,34 +23,36 @@ title: Bowling League Manager
 
         {% assign sorted_scores = scores_with_totals | sort: "total" | reverse %}
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Player</th>
-                    <th>Game 1</th>
-                    <th>Game 2</th>
-                    <th>Game 3</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for score in sorted_scores limit:3 %}
-                    {% assign game_total = score.game1 | plus: score.game2 | plus: score.game3 %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
                     <tr>
-                        <td class="rank">{{ forloop.index }}</td>
-                        <td>
-                            {% assign player_slug = score.player | slugify %}
-                            <a href="/players/{{ player_slug }}/" class="player-link">{{ score.player }}</a>
-                        </td>
-                        <td>{{ score.game1 }}</td>
-                        <td>{{ score.game2 }}</td>
-                        <td>{{ score.game3 }}</td>
-                        <td class="score">{{ game_total }}</td>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Game 1</th>
+                        <th>Game 2</th>
+                        <th>Game 3</th>
+                        <th>Total</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for score in sorted_scores limit:3 %}
+                        {% assign game_total = score.game1 | plus: score.game2 | plus: score.game3 %}
+                        <tr>
+                            <td class="rank">{{ forloop.index }}</td>
+                            <td>
+                                {% assign player_slug = score.player | slugify %}
+                                <a href="/players/{{ player_slug }}/" class="player-link">{{ score.player }}</a>
+                            </td>
+                            <td>{{ score.game1 }}</td>
+                            <td>{{ score.game2 }}</td>
+                            <td>{{ score.game3 }}</td>
+                            <td class="score">{{ game_total }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
         <p><a href="{{ latest_week.url }}" class="player-link">View Full Results →</a></p>
     {% else %}
@@ -95,37 +97,39 @@ title: Bowling League Manager
     {% assign sorted_stats = player_stats | sort | reverse %}
 
     {% if sorted_stats.size > 0 %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Player</th>
-                    <th>Average</th>
-                    <th>Games Played</th>
-                    <th>Total Pins</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for stat in sorted_stats limit:5 %}
-                    {% assign parts = stat | split: "|" %}
-                    {% assign padded_avg = parts[0] | plus: 0 %}
-                    {% assign average = padded_avg | minus: 1000 %}
-                    {% assign player_name = parts[1] %}
-                    {% assign total_games = parts[2] %}
-                    {% assign total_score = parts[3] %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
                     <tr>
-                        <td class="rank">{{ forloop.index }}</td>
-                        <td>
-                            {% assign player_slug = player_name | slugify %}
-                            <a href="/players/{{ player_slug }}/" class="player-link">{{ player_name }}</a>
-                        </td>
-                        <td class="score">{{ average }}</td>
-                        <td>{{ total_games }}</td>
-                        <td>{{ total_score }}</td>
+                        <th>Rank</th>
+                        <th>Player</th>
+                        <th>Average</th>
+                        <th>Games Played</th>
+                        <th>Total Pins</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for stat in sorted_stats limit:5 %}
+                        {% assign parts = stat | split: "|" %}
+                        {% assign padded_avg = parts[0] | plus: 0 %}
+                        {% assign average = padded_avg | minus: 1000 %}
+                        {% assign player_name = parts[1] %}
+                        {% assign total_games = parts[2] %}
+                        {% assign total_score = parts[3] %}
+                        <tr>
+                            <td class="rank">{{ forloop.index }}</td>
+                            <td>
+                                {% assign player_slug = player_name | slugify %}
+                                <a href="/players/{{ player_slug }}/" class="player-link">{{ player_name }}</a>
+                            </td>
+                            <td class="score">{{ average }}</td>
+                            <td>{{ total_games }}</td>
+                            <td>{{ total_score }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% else %}
         <p>No player statistics available yet.</p>
     {% endif %}
