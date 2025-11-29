@@ -4,275 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title | default: site.title }}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f5f5f5;
-            padding: 10px;
+            background: #f8f9fa;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .navbar {
+            background: #2c3e50 !important;
+            padding: 1rem 0;
+        }
+        .navbar-brand img {
+            max-height: 80px;
+            width: auto;
+        }
+        .nav-link {
+            color: white !important;
+            font-weight: 600;
+            padding: 0.5rem 1rem !important;
+            margin: 0 0.25rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
+        }
+        .navbar-toggler {
+            border-color: white;
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        .main-content {
             background: white;
-            padding: 20px;
+            padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
         }
-        header {
-            border-bottom: 3px solid #2c3e50;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
+        .table {
+            margin-bottom: 0;
         }
-        header img {
-            max-width: 400px;
-            height: auto;
-            display: block;
-        }
-        footer {
-            border-top: 3px solid #2c3e50;
-            padding-top: 30px;
-            margin-top: 50px;
-            text-align: center;
-        }
-        .footer-facebook {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 30px;
-            background: #1877F2;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-            margin-bottom: 20px;
-        }
-        .footer-facebook:hover {
-            background: #166fe5;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.4);
-        }
-        .footer-facebook svg {
-            flex-shrink: 0;
-        }
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 1.8em;
-        }
-        h2 {
-            color: #34495e;
-            margin: 25px 0 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ecf0f1;
-            font-size: 1.5em;
-        }
-        h3 {
-            color: #34495e;
-            margin: 20px 0 10px;
-            font-size: 1.2em;
-        }
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: flex-end;
-        }
-        nav a {
-            color: white;
-            background: #3498db;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 10px 20px;
-            border-radius: 6px;
-            border: 2px solid #3498db;
-            transition: all 0.3s ease;
-            display: inline-block;
-            text-align: center;
-        }
-        nav a:hover {
-            background: #2980b9;
-            border-color: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
-        }
-        nav a:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
-        }
-        .table-wrapper {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin: 20px 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 500px;
-        }
-        th, td {
-            padding: 12px 8px;
-            text-align: left;
-            border-bottom: 1px solid #ecf0f1;
-        }
-        th {
+        .table thead {
             background: #34495e;
             color: white;
-            font-weight: 600;
-            white-space: nowrap;
         }
-        td {
-            white-space: nowrap;
-        }
-        tr:hover {
-            background: #f8f9fa;
+        .table-hover tbody tr:hover {
+            background-color: #f8f9fa;
         }
         .score {
             font-weight: bold;
             color: #27ae60;
         }
-        .player-link {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .player-link:hover {
-            text-decoration: underline;
-        }
         .rank {
             font-weight: bold;
             color: #7f8c8d;
         }
-        .section {
-            margin: 20px 0;
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
         }
-        .date {
-            color: #7f8c8d;
-            font-size: 0.9em;
+        .footer-facebook {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 30px;
+            background: #1877F2;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
         }
-        ul {
-            padding-left: 20px;
-            line-height: 2;
+        .footer-facebook:hover {
+            background: #166fe5;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.4);
         }
-        li {
-            margin: 5px 0;
+        .section-title {
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
         }
-        p {
-            margin: 10px 0;
+        .quick-link {
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            margin: 0.5rem 0;
+            display: inline-block;
         }
-
-        /* Tablet styles */
-        @media (min-width: 600px) {
-            body {
-                padding: 20px;
+        @media (max-width: 768px) {
+            .navbar-brand img {
+                max-height: 60px;
             }
-            .container {
-                padding: 30px;
-            }
-            h1 {
-                font-size: 2.2em;
-            }
-            h2 {
-                font-size: 1.8em;
-            }
-        }
-
-        /* Desktop styles */
-        @media (min-width: 900px) {
-            th, td {
-                padding: 12px;
-            }
-        }
-
-        /* Mobile-specific improvements */
-        @media (max-width: 599px) {
-            header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            header img {
-                max-width: 100%;
-                margin: 0 auto 15px;
-            }
-            h1 {
-                font-size: 1.5em;
-            }
-            h2 {
-                font-size: 1.3em;
-                margin: 20px 0 10px;
-            }
-            h3 {
-                font-size: 1.1em;
-            }
-            th, td {
-                padding: 8px 4px;
-                font-size: 0.9em;
-            }
-            .container {
-                padding: 15px;
-                border-radius: 0;
-            }
-            body {
-                padding: 0;
-            }
-            nav {
-                gap: 8px;
-                width: 100%;
-                justify-content: center;
-            }
-            nav a {
-                padding: 8px 12px;
-                font-size: 0.9em;
-                flex: 1 1 auto;
-                min-width: 90px;
-                max-width: 150px;
-            }
-            .section {
-                margin: 15px 0;
-            }
-            table {
-                min-width: 450px;
+            .main-content {
+                padding: 1rem;
             }
         }
     </style>
-    
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="http://rumbucketbowling.net/rumbucket.png" alt="Rum Bucket Bowling League">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">🎳 Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/players/">🎳 Players</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/weeks/">🎳 Weeks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact/">🎳 Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
     <div class="container">
-        <header>
-            <!--<h1><a href="/" style="color: #2c3e50; text-decoration: none;">{{ site.title }}</a></h1>
-            <p>{{ site.description }}</p>-->
-            <img src="http://rumbucketbowling.net/rumbucket.png" alt="Rum Bucket Bowling League">
-            <nav>
-                <a href="/">🎳 Home</a>
-                <a href="/players/">🎳 Players</a>
-                <a href="/weeks/">🎳 Weeks</a>
-                <a href="/contact/">🎳 Contact</a>
-            </nav>
-        </header>
-        <main>
+        <div class="main-content">
             {{ content }}
-        </main>
-        <footer>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
             <a href="https://facebook.com/rumbucketbowlingpa" target="_blank" rel="noopener noreferrer" class="footer-facebook">
                 <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M24 0C10.745 0 0 10.745 0 24c0 11.979 8.776 21.908 20.25 23.708V30.938h-6.094v-6.938h6.094v-5.281c0-6.016 3.583-9.344 9.073-9.344 2.625 0 5.375.469 5.375.469v5.906h-3.031c-2.984 0-3.917 1.85-3.917 3.75v4.5h6.656l-1.063 6.938h-5.594v16.77C39.224 45.908 48 35.978 48 24 48 10.745 37.255 0 24 0z" fill="white"/>
                 </svg>
                 Join us on Facebook
             </a>
-        </footer>
-    </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

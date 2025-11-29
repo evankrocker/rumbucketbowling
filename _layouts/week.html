@@ -2,11 +2,11 @@
 layout: default
 ---
 
-<h1>{{ page.title }}</h1>
-<p class="date">{{ page.date | date: "%B %d, %Y" }}</p>
+<h1 class="mb-2">{{ page.title }}</h1>
+<p class="text-muted mb-4">{{ page.date | date: "%B %d, %Y" }}</p>
 
-<div class="section">
-    <h2>Week Results</h2>
+<div class="mb-4">
+    <h2 class="section-title">Week Results</h2>
 
     {% assign scores_with_totals = "" | split: "" %}
     {% for score in page.scores %}
@@ -17,8 +17,8 @@ layout: default
 
     {% assign sorted_scores = scores_with_totals | sort: "total" | reverse %}
 
-    <div class="table-wrapper">
-        <table>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
             <thead>
                 <tr>
                     <th>Rank</th>
@@ -36,7 +36,7 @@ layout: default
                         <td class="rank">{{ forloop.index }}</td>
                         <td>
                             {% assign player_slug = score.player | slugify %}
-                            <a href="/players/{{ player_slug }}/" class="player-link">{{ score.player }}</a>
+                            <a href="/players/{{ player_slug }}/" class="text-primary text-decoration-none fw-semibold">{{ score.player }}</a>
                         </td>
                         <td>{{ score.game1 }}</td>
                         <td>{{ score.game2 }}</td>
@@ -49,4 +49,4 @@ layout: default
     </div>
 </div>
 
-<p><a href="/" class="player-link">← Back to Home</a></p>
+<a href="/" class="btn btn-secondary">← Back to Home</a>
