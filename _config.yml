@@ -1,0 +1,13 @@
+title: "Rum Bucket Bowling"
+baseurl: ""
+url: "https://evankrocker.github.io/rumbucketbowling"
+markdown: kramdown
+collections:
+  players:
+    output: true
+    permalink: /players/:slug/
+  weeks:
+    output: true
+    permalink: /weeks/:slug/
+permalink: pretty
+# Keep GitHub Pages-compatible settings. No unsupported plugins.
