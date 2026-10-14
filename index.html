@@ -1,0 +1,72 @@
+---
+layout: default
+title: Home
+---
+
+<section class="hero">
+  <p class="eyebrow">Friday League</p>
+  <h1>Rum Bucket Bowling</h1>
+  <p class="lead">Track this week's standings, compare season totals, and dive into every player's performance.</p>
+</section>
+
+{% assign current_week = site.data.weeks | sort: "week" | last %}
+<section class="panel">
+  <div class="panel-header">
+    <h2>Current Week Standings</h2>
+    <span class="week-tag">{{ current_week.title }}</span>
+  </div>
+
+  <table class="standings-table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>Games</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% assign current_scores = current_week.scores | sort: "total" | reverse %}
+      {% for score in current_scores %}
+        {% assign player = site.data.players | where: "slug", score.player | first %}
+        <tr>
+          <td>{{ forloop.index }}</td>
+          <td><a href="{{ '/players/' | relative_url }}{{ player.slug }}/">{{ player.name }}</a></td>
+          <td>{{ score.games | join: " / " }}</td>
+          <td>{{ score.total }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="panel">
+  <h2>League Standings (Season)</h2>
+  <table class="standings-table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>Current Week</th>
+        <th>Season Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% assign season_players = site.data.players | sort: "season_rank" %}
+      {% for player in season_players %}
+        {% assign current_total = 0 %}
+        {% assign last_week = site.data.weeks | sort: "week" | last %}
+        {% assign current_score = last_week.scores | where: "player", player.slug | first %}
+        {% if current_score %}
+          {% assign current_total = current_score.total %}
+        {% endif %}
+        <tr>
+          <td>{{ player.season_rank }}</td>
+          <td><a href="{{ '/players/' | relative_url }}{{ player.slug }}/">{{ player.name }}</a></td>
+          <td>{{ current_total }}</td>
+          <td>{{ player.season_total }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>

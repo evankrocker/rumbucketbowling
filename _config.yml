@@ -1,6 +1,8 @@
 title: "Rum Bucket Bowling"
-baseurl: ""
+email: "contact@rumbucketbowling.com"
+description: "Rum Bucket Bowling league standings and weekly score history."
 url: "https://evankrocker.github.io/rumbucketbowling"
+baseurl: ""
 markdown: kramdown
 collections:
   players:
@@ -10,4 +12,9 @@ collections:
     output: true
     permalink: /weeks/:slug/
 permalink: pretty
-# Keep GitHub Pages-compatible settings. No unsupported plugins.
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"

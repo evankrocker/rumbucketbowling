@@ -1,0 +1,17 @@
+<nav class="navbar">
+  <div class="nav-brand">
+    <a href="{{ '/' | relative_url }}">Rum Bucket Bowling</a>
+  </div>
+
+  <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+
+  <div class="nav-links">
+    <a href="{{ '/' | relative_url }}">Home</a>
+    {% for player in site.data.players | sort: "season_rank" %}
+      <a href="{{ '/players/' | relative_url }}{{ player.slug }}/">{{ player.name }}</a>
+    {% endfor %}
+    {% for week in site.data.weeks | sort: "week" %}
+      <a href="{{ '/weeks/' | relative_url }}{{ week.slug }}/">{{ week.title }}</a>
+    {% endfor %}
+  </div>
+</nav>

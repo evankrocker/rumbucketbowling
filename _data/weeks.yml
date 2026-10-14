@@ -1,0 +1,109 @@
+- week: 1
+  title: "Week 1"
+  slug: "week-1"
+  date: "2024-09-06"
+  scores:
+    - player: "alice"
+      games: [154, 167, 180]
+      total: 501
+      rank: 1
+    - player: "barry"
+      games: [161, 165, 172]
+      total: 498
+      rank: 2
+    - player: "charlie"
+      games: [150, 160, 168]
+      total: 478
+      rank: 3
+    - player: "diana"
+      games: [145, 158, 163]
+      total: 466
+      rank: 4
+
+- week: 2
+  title: "Week 2"
+  slug: "week-2"
+  date: "2024-09-13"
+  scores:
+    - player: "alice"
+      games: [178, 167, 184]
+      total: 529
+      rank: 1
+    - player: "charlie"
+      games: [172, 168, 175]
+      total: 515
+      rank: 2
+    - player: "barry"
+      games: [170, 163, 171]
+      total: 504
+      rank: 3
+    - player: "diana"
+      games: [150, 165, 172]
+      total: 487
+      rank: 4
+
+- week: 3
+  title: "Week 3"
+  slug: "week-3"
+  date: "2024-09-20"
+  scores:
+    - player: "alice"
+      games: [183, 176, 192]
+      total: 551
+      rank: 1
+    - player: "barry"
+      games: [181, 170, 181]
+      total: 532
+      rank: 2
+    - player: "charlie"
+      games: [165, 171, 174]
+      total: 510
+      rank: 3
+    - player: "diana"
+      games: [158, 168, 169]
+      total: 495
+      rank: 4
+
+- week: 4
+  title: "Week 4"
+  slug: "week-4"
+  date: "2024-09-27"
+  scores:
+    - player: "alice"
+      games: [195, 188, 198]
+      total: 581
+      rank: 1
+    - player: "barry"
+      games: [189, 181, 193]
+      total: 563
+      rank: 2
+    - player: "charlie"
+      games: [178, 169, 187]
+      total: 534
+      rank: 3
+    - player: "diana"
+      games: [165, 176, 180]
+      total: 521
+      rank: 4
+
+- week: 5
+  title: "Week 5"
+  slug: "week-5"
+  date: "2024-10-04"
+  scores:
+    - player: "alice"
+      games: [201, 198, 206]
+      total: 605
+      rank: 1
+    - player: "barry"
+      games: [197, 202, 204]
+      total: 603
+      rank: 2
+    - player: "charlie"
+      games: [188, 190, 206]
+      total: 584
+      rank: 3
+    - player: "diana"
+      games: [171, 178, 190]
+      total: 539
+      rank: 4

@@ -1,0 +1,36 @@
+---
+layout: default
+---
+
+{% assign week = site.data.weeks | where: "slug", page.week_slug | first %}
+
+<section class="page-header">
+  <p class="eyebrow">Weekly results</p>
+  <h1>{{ week.title }}</h1>
+  <p class="date">{{ week.date }}</p>
+</section>
+
+<section class="panel">
+  <table class="standings-table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>Games</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% assign score_rows = week.scores | sort: "total" | reverse %}
+      {% for score in score_rows %}
+        {% assign player = site.data.players | where: "slug", score.player | first %}
+        <tr>
+          <td>{{ score.rank }}</td>
+          <td><a href="{{ '/players/' | relative_url }}{{ player.slug }}/">{{ player.name }}</a></td>
+          <td>{{ score.games | join: " / " }}</td>
+          <td>{{ score.total }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
