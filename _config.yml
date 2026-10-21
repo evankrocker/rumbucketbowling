@@ -1,7 +1,7 @@
 title: "Rum Bucket Bowling"
 email: "contact@rumbucketbowling.com"
-description: "Rum Bucket Bowling league standings and weekly score history."
-url: "https://evankrocker.github.io/rumbucketbowling"
+description: "Rum Bucket Bowling league standings, weekly results, and player history."
+url: "https://rumbucketbowling.net"
 baseurl: ""
 markdown: kramdown
 collections:

@@ -4,39 +4,38 @@ layout: default
 
 {% assign week = site.data.weeks | where: "slug", page.week_slug | first %}
 
-<section class="page-header mb-4">
-  <p class="eyebrow">Weekly results</p>
-  <h1>{{ week.title }}</h1>
-  <p class="lead mb-0">{{ week.date }}</p>
+<section class="mb-4">
+  <p class="eyebrow text-uppercase text-primary fw-semibold mb-2">Weekly results</p>
+  <h1 class="display-5 fw-bold mb-0">{{ week.title }}</h1>
+  <div class="text-secondary mt-2">{{ week.date }}</div>
 </section>
 
-<section class="panel">
-  <div class="panel-header">
-    <h2 class="h4 mb-0">Players for this week</h2>
-  </div>
-
-  <div class="table-responsive">
-    <table class="table table-striped table-hover align-middle">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Player</th>
-          <th>Games</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% assign score_rows = week.scores | sort: "total" | reverse %}
-        {% for score in score_rows %}
-          {% assign player = site.data.players | where: "slug", score.player | first %}
+<section class="card border-0 shadow-sm">
+  <div class="card-body p-4">
+    <h2 class="h3 mb-3">Players for this week</h2>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle mb-0">
+        <thead>
           <tr>
-            <td>{{ score.rank }}</td>
-            <td><a href="{{ '/players/' | relative_url }}{{ player.slug }}/">{{ player.name }}</a></td>
-            <td>{{ score.games | join: " / " }}</td>
-            <td><strong>{{ score.total }}</strong></td>
+            <th scope="col">Rank</th>
+            <th scope="col">Player</th>
+            <th scope="col">Games</th>
+            <th scope="col" class="text-end">Total</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% assign score_rows = week.scores | sort: "total" | reverse %}
+          {% for score in score_rows %}
+            {% assign player = site.data.players | where: "slug", score.player | first %}
+            <tr>
+              <td>{{ score.rank }}</td>
+              <td><a href="{{ '/players/' | relative_url }}{{ player.slug }}/" class="fw-semibold text-decoration-none">{{ player.name }}</a></td>
+              <td>{{ score.games | join: " / " }}</td>
+              <td class="text-end fw-bold">{{ score.total }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>

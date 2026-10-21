@@ -4,60 +4,71 @@ title: Stats Dashboard
 permalink: /stats/
 ---
 
-<section class="page-header mb-4">
-  <p class="eyebrow">Statistics</p>
-  <h1>Season Dashboard</h1>
-  <p class="lead">Quick overview of season leaders and progress.</p>
+<section class="mb-4">
+  <p class="eyebrow text-uppercase text-primary fw-semibold mb-2">Statistics</p>
+  <h1 class="display-5 fw-bold mb-0">Season Dashboard</h1>
+  <p class="lead text-secondary mt-2 mb-0">Quick overview of season leaders and recent scoring trends.</p>
 </section>
 
-<section class="panel">
-  <div class="panel-header">
-    <h2 class="h4 mb-0">Top Players (Season Total)</h2>
-  </div>
-
-  {% assign players_sorted = site.data.players | sort: "season_total" | reverse %}
-  {% assign max = players_sorted | first | default: 0 | dig: "season_total" %}
-  <div class="leaderboard">
+<section class="card border-0 shadow-sm mb-4">
+  <div class="card-body p-4">
+    <h2 class="h3 mb-3">Top Players (Season Total)</h2>
+    {% assign players_sorted = site.data.players | sort: "season_total" | reverse %}
+    {% assign max = 0 %}
     {% for p in players_sorted %}
-      <div class="leader-row">
-        <div class="leader-info">
-          <strong>#{{ forloop.index }} {{ p.name }}</strong>
-          <span class="muted ms-2">{{ p.season_total }} pts</span>
-        </div>
-        {% assign pct = 0 %}
-        {% if max > 0 %}
-          {% assign pct = p.season_total | times:100 | divided_by: max %}
-        {% endif %}
-        <div class="progress" role="progressbar" aria-label="{{ p.name }} season total" aria-valuenow="{{ pct | round }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pct | round }}%;"></div>
-      </div>
+      {% if p.season_total > max %}
+        {% assign max = p.season_total %}
+      {% endif %}
     {% endfor %}
+
+    <div class="d-grid gap-3">
+      {% for p in players_sorted %}
+        {% assign width = 0 %}
+        {% if max > 0 %}
+          {% assign width = p.season_total | times:100 | divided_by:max %}
+        {% endif %}
+        <div class="row align-items-center g-2">
+          <div class="col-12 col-lg-4">
+            <strong>#{{ forloop.index }} {{ p.name }}</strong>
+            <div class="small text-secondary">{{ p.season_total }} pts</div>
+          </div>
+          <div class="col-12 col-lg-8">
+            <div class="progress" role="progressbar" aria-label="{{ p.name }} season total" aria-valuenow="{{ width | round }}" aria-valuemin="0" aria-valuemax="100" style="height: 12px;">
+              <div class="progress-bar bg-primary" style="width: {{ width | round }}%;"></div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 </section>
 
-<section class="panel">
-  <div class="panel-header">
-    <h2 class="h4 mb-0">Latest Week Snapshot</h2>
-  </div>
-
-  {% assign last_week = site.data.weeks | sort: "week" | last %}
-  <h3 class="h5 mb-3">{{ last_week.title }} — {{ last_week.date }}</h3>
-
-  <div class="table-responsive">
-    <table class="table table-striped table-hover align-middle">
-      <thead>
-        <tr><th>Rank</th><th>Player</th><th>Total</th></tr>
-      </thead>
-      <tbody>
-        {% assign rows = last_week.scores | sort: "total" | reverse %}
-        {% for r in rows %}
-          {% assign player = site.data.players | where: "slug", r.player | first %}
+<section class="card border-0 shadow-sm">
+  <div class="card-body p-4">
+    <h2 class="h3 mb-3">Latest Week Snapshot</h2>
+    {% assign last_week = site.data.weeks | sort: "week" | last %}
+    <h3 class="h5 mb-3">{{ last_week.title }} — {{ last_week.date }}</h3>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle mb-0">
+        <thead>
           <tr>
-            <td>{{ r.rank }}</td>
-            <td><a href="{{ '/players/' | relative_url }}{{ player.slug }}/">{{ player.name }}</a></td>
-            <td><strong>{{ r.total }}</strong></td>
+            <th>Rank</th>
+            <th>Player</th>
+            <th class="text-end">Total</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% assign rows = last_week.scores | sort: "total" | reverse %}
+          {% for r in rows %}
+            {% assign player = site.data.players | where: "slug", r.player | first %}
+            <tr>
+              <td>{{ r.rank }}</td>
+              <td><a href="{{ '/players/' | relative_url }}{{ player.slug }}/" class="fw-semibold text-decoration-none">{{ player.name }}</a></td>
+              <td class="text-end fw-bold">{{ r.total }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
