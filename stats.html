@@ -1,0 +1,63 @@
+---
+layout: default
+title: Stats Dashboard
+permalink: /stats/
+---
+
+<section class="page-header mb-4">
+  <p class="eyebrow">Statistics</p>
+  <h1>Season Dashboard</h1>
+  <p class="lead">Quick overview of season leaders and progress.</p>
+</section>
+
+<section class="panel">
+  <div class="panel-header">
+    <h2 class="h4 mb-0">Top Players (Season Total)</h2>
+  </div>
+
+  {% assign players_sorted = site.data.players | sort: "season_total" | reverse %}
+  {% assign max = players_sorted | first | default: 0 | dig: "season_total" %}
+  <div class="leaderboard">
+    {% for p in players_sorted %}
+      <div class="leader-row">
+        <div class="leader-info">
+          <strong>#{{ forloop.index }} {{ p.name }}</strong>
+          <span class="muted ms-2">{{ p.season_total }} pts</span>
+        </div>
+        {% assign pct = 0 %}
+        {% if max > 0 %}
+          {% assign pct = p.season_total | times:100 | divided_by: max %}
+        {% endif %}
+        <div class="progress" role="progressbar" aria-label="{{ p.name }} season total" aria-valuenow="{{ pct | round }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pct | round }}%;"></div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-header">
+    <h2 class="h4 mb-0">Latest Week Snapshot</h2>
+  </div>
+
+  {% assign last_week = site.data.weeks | sort: "week" | last %}
+  <h3 class="h5 mb-3">{{ last_week.title }} — {{ last_week.date }}</h3>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead>
+        <tr><th>Rank</th><th>Player</th><th>Total</th></tr>
+      </thead>
+      <tbody>
+        {% assign rows = last_week.scores | sort: "total" | reverse %}
+        {% for r in rows %}
+          {% assign player = site.data.players | where: "slug", r.player | first %}
+          <tr>
+            <td>{{ r.rank }}</td>
+            <td><a href="{{ '/players/' | relative_url }}{{ player.slug }}/">{{ player.name }}</a></td>
+            <td><strong>{{ r.total }}</strong></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>

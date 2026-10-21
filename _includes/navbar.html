@@ -1,17 +1,26 @@
-<nav class="navbar">
-  <div class="nav-brand">
-    <a href="{{ '/' | relative_url }}">Rum Bucket Bowling</a>
-  </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="{{ '/' | relative_url }}">
+      <img src="{{ '/assets/images/logo.svg' | relative_url }}" alt="Rum Bucket Bowling" class="me-2" style="height: 38px; width: auto;" />
+      <span>Rum Bucket Bowling</span>
+    </a>
 
-  <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="nav-links">
-    <a href="{{ '/' | relative_url }}">Home</a>
-    {% for player in site.data.players | sort: "season_rank" %}
-      <a href="{{ '/players/' | relative_url }}{{ player.slug }}/">{{ player.name }}</a>
-    {% endfor %}
-    {% for week in site.data.weeks | sort: "week" %}
-      <a href="{{ '/weeks/' | relative_url }}{{ week.slug }}/">{{ week.title }}</a>
-    {% endfor %}
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="{{ '/' | relative_url }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ '/stats/' | relative_url }}">Stats</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ '/league-history/' | relative_url }}">League History</a></li>
+        {% for player in site.data.players | sort: "season_rank" %}
+          <li class="nav-item"><a class="nav-link" href="{{ '/players/' | relative_url }}{{ player.slug }}/">{{ player.name }}</a></li>
+        {% endfor %}
+        {% for week in site.data.weeks | sort: "week" %}
+          <li class="nav-item"><a class="nav-link" href="{{ '/weeks/' | relative_url }}{{ week.slug }}/">{{ week.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 </nav>

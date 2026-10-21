@@ -1,0 +1,54 @@
+---
+layout: default
+title: League History
+---
+
+<section class="page-header mb-4">
+  <p class="eyebrow">League</p>
+  <h1>League History</h1>
+  <p class="lead">All weeks since the start of the season. Click a week to see full results.</p>
+</section>
+
+<section class="panel">
+  <div class="panel-header">
+    <h2 class="h4 mb-0">Weekly History</h2>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover align-middle">
+      <thead>
+        <tr>
+          <th>Week</th>
+          <th>Date</th>
+          <th>Top Player</th>
+          <th>Top Score</th>
+          <th>Average</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for week in site.data.weeks | sort: "week" %}
+          {% assign top = week.scores | sort: "total" | last %}
+          {% assign total_sum = 0 %}
+          {% for s in week.scores %}
+            {% assign total_sum = total_sum | plus: s.total %}
+          {% endfor %}
+          {% assign avg = total_sum | divided_by: week.scores | size %}
+          <tr>
+            <td><a href="{{ '/weeks/' | relative_url }}{{ week.slug }}/">{{ week.title }}</a></td>
+            <td>{{ week.date }}</td>
+            <td>
+              {% assign player = site.data.players | where: "slug", top.player | first %}
+              {% if player %}
+                <a href="{{ '/players/' | relative_url }}{{ player.slug }}/">{{ player.name }}</a>
+              {% else %}
+                {{ top.player }}
+              {% endif %}
+            </td>
+            <td><strong>{{ top.total }}</strong></td>
+            <td>{{ avg | round }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
